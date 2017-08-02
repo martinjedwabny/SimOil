@@ -1,0 +1,31 @@
+Demo: "Se corre el simulador como viene"
+-- Resultado esperado: no hay ventas
+-- Razón: no hay parcelas ni rigs
+-- Observar: las plantas y tanques se piden todos el día 1
+-- Observar: se compran 20 tanques de agua de 100L c/u y 20 tanques de gas de 100L c/u, y las 10 plantas separadoras de 30L (por los criterios elegidos). La forma de calcular los costos es lineal por un factor de 0.5.
+-- Entonces, todos los tanques salen en total 40 tanques * $50 = $2000, y  todas las plantas salen en total 10 plantas * $15 = $150.
+-- Además, a partir del día 51, se compran 10L de Agua por día ($5 por litro) hasta el día 199: 149 días * $50 = $7450
+-- Total: $150 + $7450 + $2000 = $9600
+
+Demo: "Agregar 2 parcelas y 2 RIGs, default"
+-- Observar: se empieza a excavar el día 1
+-- Las excavaciones son correctas: se excava 12 m. por día: potencía del RIG es 15 m/día, y porcentaje dureza de parcela es 20% => 15 * 0.8 = 12
+-- Entonces, para hacer 30 m. tardan 3 días => En el día 3 aparecen 2 pozos.
+-- Hasta el día 51 no pasa nada: no se puede extraer de los pozos porque no hay plantas o tanques.
+-- Desde el día 51 al 57 extrae 300L por día de un Pozo: porque hay 10 plantas de 30L ($2250 pesos por día).
+-- En el día 58 se reinyecta porqu el pozo llega a una presión menor a 2000 psia. Hay muchas reinyecciones en los mismos pozos porque se sacan de diferentes tanques. Todos los tanques de agua están vacios.
+-- Se puede ver que el porcentaje de petroleo al final del día 58 baja a 49.999. Luego, en el día 59, se extrae y vende menos petroleo.
+ 
+
+Demo: "Mostrar que el criterio de seleccion de parcelas con RIG de menor precio gasta menos que el criterio de seleccion de parcelas con RIG de mayor potencia"
+-- Poner una parcela default, un RIG default y un RIG default con potencia 30. => el RIG tarda 2 días en vez de 3, y excava 24 m. por día (80% de 30)
+
+Demo: "Criterio de extraccion Random saca menos que el criterio de extraccion Saco lo más que puedo"
+
+Demo: "Comparar Criterio de terminacion por días fijos contra por dilución crítica"
+
+Demo: "Dilucion critica + NO vender gas contra SI vender gas"
+-- Mostrar que los tanques de gas son muchas mas que los tanques de agua, porque se crean a demanda, y no se vende gas.
+-- Mostrar que la cantidad de dias de la simulacion se incrementa al no poder vender gas porque hay que esperar a construir nuevos tanques.
+
+Demo: "Muchas parcelas, pocos RIGs => se alquila el mismo RIG muchas veces"
